@@ -5,12 +5,14 @@ body {
 }
 
 .card {
+    border-radius: 25px;
     background-color: white;
     padding: 20px;
     margin-top: 20px;
 }
 
 .createpanel {
+    border-radius: 25px;
     float: left;
     width: 20%;
     padding-left: 20px;
