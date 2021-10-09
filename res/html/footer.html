@@ -1,0 +1,43 @@
+</div>
+<div class="createpanel">
+    <div class="card">
+        <p>
+        Title:<br>
+        <input type="text" name="titleBox" id="titleBox" />
+        </p>
+        <p>
+        Description:<br>
+        <textarea name="textBox" id="textBox"></textarea>
+        </p>
+        <p>
+            <input name="dateTimePicker" id="dateTimePicker" />
+        </p>
+        <button onclick="createpost()">Create Post</button>
+    </div>
+</div>
+</div>
+</body>
+<script>
+    instance = new dtsel.DTS('input[name="dateTimePicker"]', {
+        showTime: true
+    });
+    function createpost() {
+        var dtpck = document.getElementById("dateTimePicker").value;
+        if (dtpck == "" || dtpck == undefined)
+            alert("Date cannot be blank.")
+        else {
+            var titleData = document.getElementById("titleBox").value;
+            var descData = document.getElementById("textBox").value;
+            document.location = "create?title=" + titleData
+                + "&desc=" + descData
+                + "&date=" + document.getElementById("dateTimePicker").value;
+        }
+    }
+    function deletePost(index) {
+        var a = confirm("Are you sure you want to delete this post?");
+        if(a) {
+            document.location = "delete?postindex=" + index;
+        }
+    }
+</script>
+</html>
