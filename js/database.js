@@ -23,7 +23,7 @@ async function each_sync(query, params, action) {
 
 async function getEntries() {
     const entries = [];
-    await each_sync("SELECT rowid AS id, title, description, day, month, year, hour, minute FROM events", [], function(row) {
+    await each_sync("SELECT rowid AS id, title, description, day, month, year, hour, minute FROM events ORDER BY year, month, day, hour, minute", [], function(row) {
         //console.log(row.id + ": " + row.title);
         entries.push(row);
     });

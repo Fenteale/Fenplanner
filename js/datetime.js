@@ -1,7 +1,7 @@
 function parseDateTime (dateTimeString) {
     var retvec = [0, 0, 0, 0, 0];
 
-    var p1 = dateTimeString.split(', ');
+    var p1 = dateTimeString.split('T');
     var pd = p1[0].split('-');
     retvec[0] = parseInt(pd[2]); //day
     retvec[1] = parseInt(pd[1]); //month

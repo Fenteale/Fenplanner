@@ -10,8 +10,12 @@
         <textarea name="textBox" id="textBox" style="width:100%;"></textarea>
         </p>
         <p>
-            Date and Time:<br>
-            <input name="dateTimePicker" id="dateTimePicker" style="width:100%;"/>
+            Date:<br>
+            <input name="datePicker" id="datePicker" type="date" style="width:100%;"/>
+        </p>
+        <p>
+            Time:<br>
+            <input name="timePicker" id="timePicker" type="time" style="width:100%;"/>
         </p>
         <button onclick="createpost()">Create Post</button>
     </div>
@@ -19,11 +23,13 @@
 </div>
 </body>
 <script>
+    /*
     instance = new dtsel.DTS('input[name="dateTimePicker"]', {
         showTime: true
     });
+    */
     function createpost() {
-        var dtpck = document.getElementById("dateTimePicker").value;
+        var dtpck = document.getElementById("datePicker").value+"T"+document.getElementById("timePicker").value;
         if (dtpck == "" || dtpck == undefined)
             alert("Date cannot be blank.")
         else {
@@ -31,7 +37,7 @@
             var descData = document.getElementById("textBox").value;
             document.location = "create?title=" + titleData
                 + "&desc=" + descData
-                + "&date=" + document.getElementById("dateTimePicker").value;
+                + "&date=" + dtpck;
         }
     }
     function deletePost(index) {

@@ -14,12 +14,13 @@ async function constructHomePage()
 {
     delete nowdate;
     nowdate = new Date();
-    nowdate.setTime(nowdate.getTime() - tzOffset);
+    //nowdate.setTime(nowdate.getTime() - tzOffset);
     var resData = header;
     var ent = await dbfunc.getEntries();
     ent.forEach(function(item, index, array) {
         resData += constructEntry(item);
     });
+    resData += `<p><small><small>Time is now: ${nowdate}</small></small></p>`
     resData += footer;
     return resData;
 }
@@ -34,9 +35,10 @@ function constructEntry(row) {
         if (day_difference <= 30) {
             color = [252, 156, 53];
             if (day_difference <= 7) {
+                const redoffset = (255 * day_difference / 7);
                 if (day_difference <= 1)
                     extraStyle = "border:20px solid yellow;";
-                color = [255 - (255 * day_difference / 7) , 0, 0];
+                color = [255 , redoffset, redoffset];
             }
         }
     } else { //even has passed
