@@ -20,7 +20,7 @@ app.use('/css', express.static(path.join(__dirname,'res','css')));
 app.use('/dtsel', express.static(path.join(__dirname,'dtsel')));
 app.use(favicon(path.join(__dirname, 'res', 'favicon.ico')));
 
-const psDec = Array.prototype.map.call(new Uint8Array(crypto.createHash("sha512").update(config.adminPassword).digest()), x=>(('00'+x.toString(16)).slice(-2))).join('');
+const psDec = Array.prototype.map.call(new Uint8Array(crypto.createHash("sha256").update(config.adminPassword).digest()), x=>(('00'+x.toString(16)).slice(-2))).join('');
 
 app.get('/', async function (req, res) {
     if(req.session.loginSession) {
@@ -46,15 +46,14 @@ app.get('/delete', function(req, res) {
         db.deleteEntry(req.query.postindex);
     }
     res.redirect('/');
-})
+});
 
-app.get('/login', async function(req, res) {
+app.get('/login', function(req, res) {
+    console.log('Login attempt happening...', req.query.hpw);
     if(req.query.hpw == psDec) {
         req.session.loginSession=true;
-        res.redirect('/');
     }
-    else
-        res.sendFile(path.join(__dirname, 'res', 'html', 'login.html'));
+    res.redirect('/');
 });
 
 app.listen(3000, function () {
