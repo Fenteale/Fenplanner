@@ -56,6 +56,14 @@ app.get('/login', function(req, res) {
     res.redirect('/');
 });
 
+app.get('/makeperp', function(req, res) {
+    if(req.session.loginSession) {
+        console.log('Making entry', req.query.perpind, 'perpetual.');
+        db.makePerp(req.query.perpind);
+    }
+    res.redirect('/');
+})
+
 app.listen(3000, function () {
     console.log('app.js listening on port 3000.');
 });

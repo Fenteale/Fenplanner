@@ -10,6 +10,10 @@
         <textarea name="textBox" id="textBox" style="width:100%;"></textarea>
         </p>
         <p>
+            <input type="checkbox" id="perp" name="perp" onclick="dsDateTime(this)" />
+            <label for="perp"> Perpetual</label>
+        </p>
+        <p>
             Date:<br>
             <input name="datePicker" id="datePicker" type="date" style="width:100%;"/>
         </p>
@@ -29,15 +33,22 @@
     });
     */
     function createpost() {
-        var dtpck = document.getElementById("datePicker").value+"T"+document.getElementById("timePicker").value;
-        if (dtpck == "" || dtpck == undefined)
-            alert("Date cannot be blank.")
-        else {
-            var titleData = document.getElementById("titleBox").value;
-            var descData = document.getElementById("textBox").value;
+        var titleData = document.getElementById("titleBox").value;
+        var descData = document.getElementById("textBox").value;
+        if (document.getElementById("perp").checked) {
             document.location = "create?title=" + titleData
                 + "&desc=" + descData
-                + "&date=" + dtpck;
+                + "&date=P";
+        } else {
+            var dtpck = document.getElementById("datePicker").value+"T"+document.getElementById("timePicker").value;
+            if (dtpck == "" || dtpck == undefined)
+                alert("Date cannot be blank.")
+            else {
+                
+                document.location = "create?title=" + titleData
+                    + "&desc=" + descData
+                    + "&date=" + dtpck;
+            }
         }
     }
     function deletePost(index) {
@@ -46,5 +57,45 @@
             document.location = "delete?postindex=" + index;
         }
     }
+
+    function makePerp(index) {
+        var a = confirm("Are you sure you want to make this post perpetual (No ending date)?");
+        if(a) {
+            document.location = "makeperp?perpind=" + index;
+        }
+    }
+
+    function openPage(pageName, elmnt, color) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("entries");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+
+        document.getElementById(pageName).style.display = "block";
+
+        elmnt.style.backgroundColor = color;
+    }
+
+    function dsDateTime(elmnt) {
+        var dsel, tsel;
+        dsel = document.getElementById("datePicker");
+        tsel = document.getElementById("timePicker");
+        if (elmnt.checked) {
+            dsel.disabled = true;
+            tsel.disabled = true;
+        } else {
+            dsel.disabled = false;
+            tsel.disabled = false;
+        }
+
+    }
+
+    document.getElementById("defaultOpen").click();
 </script>
 </html>

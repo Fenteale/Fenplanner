@@ -39,8 +39,12 @@ function deleteEntry(index) {
     db.run(`DELETE FROM events WHERE rowid = ${index}`);
 }
 
+function makePerp(index) {
+    db.run(`UPDATE events SET day=-1, month=-1, year=-1, hour=-1, minute=-1 WHERE rowid = ${index}`);
+}
+
 function closeDB() {
     db.close();
 }
 
-module.exports = {getEntries, createEntry, deleteEntry, closeDB};
+module.exports = {getEntries, createEntry, deleteEntry, makePerp, closeDB};
